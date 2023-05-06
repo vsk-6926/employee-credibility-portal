@@ -8,9 +8,11 @@ const Jobs = () => {
   const renderCreateJob = ()=>{
     if(userType==="company"){
       return(
-        <button className="bg-blue-900 text-white  font-bold py-2 px-4 rounded-full hover:bg-white hover:text-blue-900">
-  <Link to="/createJob">Create New Job Opening</Link>
-</button>
+        <div className="flex items-center justify-center">
+        <button className="bg-blue-900 text-white font-bold py-2 px-4 rounded-full hover:bg-white hover:text-blue-900">
+          <Link to="/createJob">Create New Job Opening</Link>
+        </button>
+      </div>
       )
     }
   }

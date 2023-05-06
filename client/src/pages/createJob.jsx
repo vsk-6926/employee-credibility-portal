@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import bgImage from "../assets/bg.jpg";
 
@@ -8,6 +9,7 @@ const CreateJobListing = () => {
   const [location, setLocation] = useState("");
   const [salary,setSalary] = useState("");
   const [jobDescription, setJobDescription] = useState("");
+  const [requirements, setRequirements] = useState("");
 
   const navigate = useNavigate();
 
@@ -15,12 +17,23 @@ const CreateJobListing = () => {
     e.preventDefault();
     // Submit form data to backend
     const formData = {
-      jobTitle,
-      companyName,
-      location,
-      jobDescription,
+      title:jobTitle,
+      company:companyName,
+      location:location,
+      salary:salary,
+      description:jobDescription,
+      requirements:requirements
     };
     console.log(formData);
+    axios.post("http://localhost:5000/job/create", formData)
+      .then((response) => {
+        console.log(response);
+        // Redirect to home page
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     // Redirect to home page
     navigate("/");
   };
@@ -104,7 +117,7 @@ const CreateJobListing = () => {
         <div className="mb-4">
           <label
             className="block text-gray-700 font-bold mb-2"
-            htmlFor="companyName"
+            htmlFor="salary"
           >
             Expected Salary
           </label>
@@ -113,8 +126,25 @@ const CreateJobListing = () => {
             id="salary"
             type="text"
             placeholder="Enter salary"
-            value={companyName}
+            value={salary}
             onChange={(e) => setSalary(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 font-bold mb-2"
+            htmlFor="requirements"
+          >
+           Requirements
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="requirements"
+            type="text"
+            placeholder="Enter Requirements"
+            value={requirements}
+            onChange={(e) => setRequirements(e.target.value)}
             required
           />
         </div>

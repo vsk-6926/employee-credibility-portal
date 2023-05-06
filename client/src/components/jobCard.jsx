@@ -52,6 +52,7 @@ const JobCard = ({ job }) => {
   useEffect(()=>{
     getJobs();
   })
+  const buttonText = userType === "company" ? "More Details" : "Apply";
   
 
   return (
@@ -67,7 +68,7 @@ const JobCard = ({ job }) => {
         <p className="text-sm text-gray-500 mt-2">{job.description}</p>
       </div>
       <button className="bg-blue-900 text-white font-bold py-2 px-4 rounded-full hover:bg-white hover:text-blue-900">
-        Apply
+       {buttonText}
       </button>
     </div>
   );

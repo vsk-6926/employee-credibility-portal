@@ -1,13 +1,14 @@
 const Job = require('../../models/Job');
+const mongoose = require('mongoose');
 
 const createJob = async (req, res) => {
     const job = req.body;
+    console.log(job);
     const newJob = new Job({
         id : new mongoose.Types.ObjectId(),
         title: job.title,
         description: job.description,
         company: job.company,
-        status: job.status,
         location: job.location,
         salary: job.salary,
         requirements: job.requirements,
@@ -17,7 +18,7 @@ const createJob = async (req, res) => {
         res.status(201).json(savedJob);
     }
     catch (err) {
-        res.status(500).json({ message: err });
+        console.log(err)
     }
 }
 
