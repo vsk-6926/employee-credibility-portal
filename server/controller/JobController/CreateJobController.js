@@ -8,6 +8,9 @@ const createJob = async (req, res) => {
         description: job.description,
         company: job.company,
         status: job.status,
+        location: job.location,
+        salary: job.salary,
+        requirements: job.requirements,
     });
     try {
         const savedJob = await newJob.save();
