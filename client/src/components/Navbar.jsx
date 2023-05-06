@@ -1,4 +1,4 @@
-import React,{ useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../redux/slices";
@@ -7,13 +7,13 @@ import { loginUser } from "../redux/slices";
 function Navbar() {
   const loggedIn = useSelector((state) => state.login.loggedIn);
   const userId = useSelector((state) => state.login.userId);
-  const userType= useSelector((state)=>state.login.userType);
+  const userType = useSelector((state) => state.login.userType);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     // Dispatch the logout action
     localStorage.removeItem("isLoggedIn");
-  localStorage.removeItem("user");
+    localStorage.removeItem("user");
     dispatch(logoutUser());
   };
 
@@ -22,14 +22,68 @@ function Navbar() {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     if (isLoggedIn) {
       const storedUser = JSON.parse(localStorage.getItem("user"));
-      if (storedUser && storedUser.userId) {
-        dispatch(loginUser({ userId: storedUser.userId }));
+      if (storedUser && storedUser.userId && storedUser.userType) {
+        dispatch(loginUser({ userId: storedUser.userId, userType: storedUser.userType }));
       }
     }
   }, [dispatch]);
 
+  const renderNavLinks = () => {
+    if (loggedIn) {
+      // Render links based on the userType
+      if (userType === "employee") {
+        return (
+          <>
+            <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
+              <Link to="/about">About</Link>
+            </li>
+            <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
+              <Link to="/jobs">Jobs</Link>
+            </li>
+            <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
+              <Link to="/employee">Employee</Link>
+            </li>
+            <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
+              <Link to="/company">Company</Link>
+            </li>
+          </>
+        );
+      } else if (userType === "company") {
+        return (
+          <>
+            <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
+              <Link to="/about">About</Link>
+            </li>
+            <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
+              <Link to="/jobs">Jobs</Link>
+            </li>
+            <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
+              <Link to="/company">Company</Link>
+            </li>
+          </>
+        );
+      }
+    } else {
+      // Render default links for non-logged in users
+      return (
+        <>
+          <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
+            <Link to="/about">About</Link>
+          </li>
+          <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
+            <Link to="/jobs">Jobs</Link>
+          </li>
+          <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
+              <Link to="/employee">Employee</Link>
+            </li>
+            <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
+              <Link to="/company">Company</Link>
+            </li>
+        </>
+      );
+    }
+  };
 
-  
   return (
     <nav className="flex items-center justify-between flex-wrap bg-blue-900 p-4 mb-0">
       <a
@@ -42,23 +96,11 @@ function Navbar() {
       </a>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <ul className="text-md lg:flex-grow lg:flex lg:justify-center">
-          
-          <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
-            <Link to="/about">About</Link>
-          </li>
-          <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
-            <Link to="/jobs">Jobs</Link>
-          </li>
-          <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
-            <Link to="/employee">Employee</Link>
-          </li>
-          <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
-            <Link to="/company">Company</Link>
-          </li>
+          {renderNavLinks()}
         </ul>
       </div>
       <div className="mr-8">
-      {loggedIn ? (
+        {loggedIn ? (
           <div className="flex items-center">
             <span className="text-white mr-6">Hi, {userId}</span>
             <button onClick={handleLogout}>

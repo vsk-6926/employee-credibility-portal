@@ -26,7 +26,7 @@ const Login = () => {
       console.log(userType);
         dispatch(loginUser({ userId, userType }));
         localStorage.setItem("isLoggedIn", true);
-        localStorage.setItem("user", JSON.stringify({ userId, userType }));
+        localStorage.setItem("user", JSON.stringify({ userId: userId, userType: userType }))
         navigate("/")
       });
   };

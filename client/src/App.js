@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
@@ -11,8 +11,22 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import CreateJobListing from './pages/createJob';
 import FeedbackForm from './pages/takeScore';
+import { useDispatch } from 'react-redux';
+import { loginUser } from './redux/slices';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Check if the user is logged in on component mount
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (isLoggedIn) {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      if (storedUser && storedUser.userId && storedUser.userType) {
+        dispatch(loginUser({ userId: storedUser.userId, userType: storedUser.userType }));
+      }
+    }
+  }, [dispatch]);
   return (
     <BrowserRouter>
       <Navbar />
