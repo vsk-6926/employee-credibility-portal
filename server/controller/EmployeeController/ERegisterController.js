@@ -1,4 +1,4 @@
-const employee = require('../models/employee');
+const employee = require('../../models/employee');
 
 const createEmployee = async (req, res) => {
     const employee = req.body;

@@ -8,45 +8,31 @@ const employeeSchema = new mongoose.Schema({
     },
     name : {
         type: String,
-        required: true,
-        min: 3,
-        max: 255,   
+        required: true,   
     },
     currentCompany : {
         type: String,
         required: true,
-        min: 3,
-        max: 255,
     },
     experience : {
         type: String,
         required: true,
-        min: 3,
-        max: 255,
     },
     email : {
         type: String,
         required: true,
-        min: 3,
-        max: 255,
     },
     phone : {
         type: String,
         required: true,
-        min: 3,
-        max: 255,
     },
     skills : {
-        type: array,
+        type: [String],
         required: true,
-        min: 3,
-        max: 255,
     },
     location : {
         type: String,
         required: true,
-        min: 3,
-        max: 255,
     }, 
 });
 

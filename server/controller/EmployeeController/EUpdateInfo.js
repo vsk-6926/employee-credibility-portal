@@ -1,4 +1,4 @@
-const employee = require('../models/employee');
+const employee = require('../../models/employee');
 
 const updateInfo = async (req, res) => {
     const employee = req.body;

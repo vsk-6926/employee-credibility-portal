@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 
 const createJob = async (req, res) => {
     const job = req.body;
-    console.log(job);
     const newJob = new Job({
         id : new mongoose.Types.ObjectId(),
         title: job.title,
