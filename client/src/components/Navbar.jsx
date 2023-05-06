@@ -7,6 +7,7 @@ import { loginUser } from "../redux/slices";
 function Navbar() {
   const loggedIn = useSelector((state) => state.login.loggedIn);
   const userId = useSelector((state) => state.login.userId);
+  const userType= useSelector((state)=>state.login.userType);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -27,6 +28,8 @@ function Navbar() {
     }
   }, [dispatch]);
 
+
+  
   return (
     <nav className="flex items-center justify-between flex-wrap bg-blue-900 p-4 mb-0">
       <a
@@ -39,6 +42,7 @@ function Navbar() {
       </a>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <ul className="text-md lg:flex-grow lg:flex lg:justify-center">
+          
           <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
             <Link to="/about">About</Link>
           </li>

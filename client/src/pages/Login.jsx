@@ -23,6 +23,7 @@ const Login = () => {
     e.preventDefault();
     axios.post("http://localhost:5000/login", formData).then((res) => {
       const { userId, userType } = res.data;
+      console.log(userType);
         dispatch(loginUser({ userId, userType }));
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("user", JSON.stringify({ userId, userType }));
