@@ -19,6 +19,7 @@ app.use('/score', require('./routes/ScoreRouter'));
 app.use('/company', require('./routes/CompanyRouter'));
 app.use( '/job', require('./routes/JobRouter'));
 app.use('/offer', require('./routes/OfferRouter'));
+app.use('/employee', require('./routes/EmployeeRouter'));
 
 const PORT =  5000;
 
