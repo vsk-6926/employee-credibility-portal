@@ -24,13 +24,19 @@ const jobSchema = new mongoose.Schema({
         min: 3,
         max: 255,
     },
-    requirements : {
+    company : {
         type: String,
         required: true,
         min: 3,
         max: 255,
     },
-    company : {
+    location : {
+        type: String,
+        required: true,
+        min: 3,
+        max: 255,
+    },
+    salary : {
         type: String,
         required: true,
         min: 3,
