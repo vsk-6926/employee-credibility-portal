@@ -1,7 +1,7 @@
 
 async function main() {
   // Set up the contract instance
-  const contractAddress = "0x6423e69469df52A0A73875db1fA16F8afeE648b6"; // Replace with the actual contract address
+  const contractAddress = "0x41a0a3CAC729a477A155A08Da9c1c0442594cac2"; // Replace with the actual contract address
   const Score = await ethers.getContractFactory("Score");
   const scoreInstance = await Score.attach(contractAddress);
 

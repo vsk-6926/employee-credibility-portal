@@ -1,11 +1,88 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import bgImage from "../assets/bg.jpg";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { ethers } from "ethers";
+import contractABI from "../utils/contractABI.json";
 
-//Signup Page integrated
+//Signup Page integrated with Metamask
+const contractAddress = "0x41a0a3CAC729a477A155A08Da9c1c0442594cac2";
 
 const Signup = () => {
+
+  const [currentAccount, setCurrentAccount] = useState("");
+
+  const checkIfWalletIsConnected = async () => {
+    try {
+      const { ethereum } = window;
+      if (!ethereum) {
+        console.log("Make sure you have metamask!");
+        return;
+      } else {
+        console.log("We have the ethereum object", ethereum);
+      }
+      
+      const accounts = await ethereum.request({ method: "eth_accounts" });
+      if (accounts.length !== 0) {
+        const account = accounts[0];
+        console.log("Found an authorized account:", account);
+        setCurrentAccount(account);
+      } else {
+        console.log("No authorized account found");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const connectWallet = async () => {
+    try {
+      const { ethereum } = window;
+      if (!ethereum) {
+        alert("Get MetaMask!");
+        return;
+      }
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      console.log("Connected", accounts[0]);
+      setCurrentAccount(accounts[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const registerCompanyName = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const connectedContract = new ethers.Contract(
+          contractAddress,
+          contractABI.abi,
+          signer
+        );
+        console.log("Going to pop wallet now to pay gas...");
+        let nftTxn = await connectedContract.registerCompanyName(
+          formData.name)
+        await nftTxn.wait();
+        console.log("Mined -- ", nftTxn);
+      } else {
+        console.log("Ethereum object doesn't exist!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+  };
+
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, []);
+
+
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -21,12 +98,17 @@ const Signup = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(formData);
     e.preventDefault();
-      await axios.post("http://localhost:5000/register", formData).then((res) => {
-        navigate("/");
-      });
-    
+    console.log(formData);
+    await connectWallet();
+    if (formData.userType === "company") {
+      await registerCompanyName();
+    }
+    axios.post("http://localhost:5000/register", formData).then((res) => {
+      console.log(res);
+      navigate("/login");
+    }
+    );
   };
 
   return (
