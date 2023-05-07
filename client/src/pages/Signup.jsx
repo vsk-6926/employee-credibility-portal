@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import bgImage from "../assets/bg.jpg";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 //Signup Page integrated
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     password: "",
@@ -21,7 +23,7 @@ const Signup = () => {
     console.log(formData);
     e.preventDefault();
       await axios.post("http://localhost:5000/register", formData).then((res) => {
-        console.log(res.data);
+        navigate("/");
       });
     
   };

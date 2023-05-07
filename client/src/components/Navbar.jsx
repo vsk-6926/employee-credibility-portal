@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { FiUser } from 'react-icons/fi';
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../redux/slices";
@@ -101,17 +102,24 @@ function Navbar() {
       </div>
       <div className="mr-8">
         {loggedIn ? (
-          <div className="flex items-center">
-            <span className="text-white mr-6">Hi, {userId}</span>
-            <button onClick={handleLogout}>
-              <Link
-                to="/"
-                className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-blue-900 hover:bg-white mt-4 lg:mt-0 mr-4"
-              >
-                Logout
-              </Link>
-            </button>
-          </div>
+           <div className="flex items-center">
+           <div className="flex items-center mr-6">
+             <div className="bg-blue-900 text-white flex items-center justify-center rounded-full w-10 h-10 mr-2">
+              <Link to="/updateDetails">
+              <FiUser className="text-2xl" /></Link>
+               
+             </div>
+             <span className="text-white text-lg font-bold">Hi, {userId}</span>
+           </div>
+           <button onClick={handleLogout}>
+             <Link
+               to="/"
+               className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-blue-900 hover:bg-white mt-4 lg:mt-0 mr-4"
+             >
+               Logout
+             </Link>
+           </button>
+         </div>
         ) : (
           <>
             <Link

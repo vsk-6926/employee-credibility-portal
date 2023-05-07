@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const companySchema = new mongoose.Schema({
-    id : {
-        type: mongoose.Schema.Types.ObjectId,
-        default: mongoose.Types.ObjectId,
-        required : true,
-    },
     name: {
         type: String,
         required: true,

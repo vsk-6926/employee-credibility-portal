@@ -1,13 +1,12 @@
 const Job = require('../../models/Job');
 const getJobDetails = async (req, res) => {
     try {
-      const { title, company } = req.query;
-  
-      // Perform a database query to find the job using the title and company
-      const job = await Job.findOne({ title, company });
+      const {id} = req.body;
+
+    
+      const job = await Job.find({ _id: { $in: id }} );
   
       if (job) {
-        // Job found, send the job details as the response
         res.status(200).json(job);
       } else {
         // Job not found

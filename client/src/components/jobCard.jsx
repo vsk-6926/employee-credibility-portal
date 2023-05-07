@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 const JobCard = ({ job }) => {  
   const navigate = useNavigate();
   const clickHandler=()=>{
-    navigate('/jobdetails')
+    navigate(`/jobdetails?id=${job.id}`);
   }
 
   return (

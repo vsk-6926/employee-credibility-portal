@@ -3,27 +3,27 @@ const mongoose = require('mongoose');
 const scoreSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
     },
     experience: {
         type: Number,
-        required: true,
     },
-    skills: {
+    technicalSkills: {
         type: Number,
-        required: true,
     },
-    education: {
+    interPersonalSkills: {
         type: Number,
-        required: true,
     },
-    jobOffer: {
+    problemSolving: {
         type: Number,
-        required: true,
+    },
+    offersAcceptance: {
+        type: Number,
     },
     interviews: {
         type: Number,
-        required: true,
+    },
+    totalScore: {
+        type: Number,
     },
 });
 

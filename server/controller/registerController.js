@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const Score = require('../models/Score');
 const bcrypt = require('bcrypt');
+const employee = require('../models/employee');
+const Company = require('../models/Company');
 
 const registerUser = async (req, res) => {
     const user = req.body;
@@ -15,20 +17,33 @@ const registerUser = async (req, res) => {
             email: user.email,
             phone : user.phone,
             password: hashedPassword,
-            phone:user.phone,
             userType:user.userType
         });
         try {
             if(user.userType==="employee"){
+                const newEmployee= new employee({
+                    name: user.name,
+                  email: user.email,
+                  phone : user.phone,
+                })
                 const newScore = new Score({
                     name: user.name,
-                    experience: 10,
-                    skills: 10,
-                    education: 10,
-                    jobOffer: 10,
-                    interviews: 10,
+                    experience: 80,
+                    technicalSkills: 80,
+                    interPersonalSkills: 80,
+                    problemSolving: 80,
+                    offersAcceptance:80,
+                    interviews: 80,
                 });
                 await newScore.save();
+                await newEmployee.save();
+            }else if(user.userType==="company"){
+                const newCompany = new Company({
+                    name: user.name,
+                  email: user.email,
+                  phone : user.phone,
+                })
+                await newCompany.save();
             }
             
            

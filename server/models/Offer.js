@@ -1,11 +1,6 @@
 const mongoos = require('mongoose');
 
 const offerSchema = new mongoos.Schema({
-    id : {
-        type: mongoos.Schema.Types.ObjectId,
-        default: mongoos.Types.ObjectId,
-        required : true,
-    },
     role : {
         type: String,
         required: true,

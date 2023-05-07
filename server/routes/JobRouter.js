@@ -10,7 +10,7 @@ const getJobDetails = require('../controller/JobController/getJobController');
 router.post('/all', getJobs);
 router.post('/create', createJob);
 router.post('/company', getCompanyJobs);
-router.get('/jobdetails',getJobDetails);
+router.post('/jobdetails',getJobDetails);
 
 module.exports = router;
 

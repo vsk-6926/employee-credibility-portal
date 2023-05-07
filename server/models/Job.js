@@ -12,12 +12,6 @@ const jobSchema = new mongoose.Schema({
         min: 3,
         max: 255,
     },
-    requirements : {
-        type: String,
-        required: true,
-        min: 3,
-        max: 255,
-    },
     description : {
         type: String,
         required: true,
