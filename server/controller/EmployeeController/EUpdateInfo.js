@@ -1,22 +1,26 @@
-const employee = require('../../models/employee');
+const Employee = require('../../models/employee');
 
 const updateInfo = async (req, res) => {
     const employee = req.body;
-    const newEmployee = new Employee({
-        id : new mongoose.Types.ObjectId(),
-        name: employee.name,
-        currentCompany: employee.currentCompany,
-        experience: employee.experience,
-        skills: employee.skills,
-        location: employee.location,
-    });
+    const { name, currentCompany, experience, skills, location } = employee;
+  
     try {
-        const savedEmployee = await newEmployee.save();
-        res.status(201).json(savedEmployee);
+      // Find the employee by name and update the fields
+      const updatedEmployee = await Employee.findOneAndUpdate(
+        { name },
+        {
+          currentCompany,
+          experience,
+          skills,
+          location,
+        },
+        { new: true }
+      );
+  
+      res.status(200).json(updatedEmployee);
+    } catch (err) {
+      res.status(500).json(err);
     }
-    catch (err) {
-        res.status(500).json({ message: err });
-    }
-}
+  };
 
 module.exports = updateInfo;

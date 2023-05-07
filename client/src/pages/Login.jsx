@@ -11,7 +11,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate= useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     password: "",
   });
 
@@ -51,8 +51,8 @@ const Login = () => {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="name"
                 type="text"
-                name="name"
-                value={formData.name}
+                name="username"
+                value={formData.username}
                 onChange={handleChange}
               />
             </div>

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 const loginUser = async (req, res) => {
     const user = req.body;
-    const takeUser = await User.findOne({ name: user.name });
+    const takeUser = await User.findOne({ username: user.username });
     if(takeUser) {
         const validPassword = await bcrypt.compare(user.password, takeUser.password);
         const userType = takeUser.userType;
