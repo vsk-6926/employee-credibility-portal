@@ -9,6 +9,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
+    username:"",
     password: "",
     email: "",
     phone: "",
@@ -42,7 +43,7 @@ const Signup = () => {
                 className="block text-gray-700 font-bold mb-2"
                 htmlFor="name"
               >
-                Username
+                Name
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -50,6 +51,22 @@ const Signup = () => {
                 type="text"
                 name="name"
                 value={formData.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="username"
+              >
+                Username
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="username"
+                type="text"
+                name="username"
+                value={formData.username}
                 onChange={handleChange}
               />
             </div>

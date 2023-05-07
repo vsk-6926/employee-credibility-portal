@@ -13,12 +13,6 @@ const companySchema = new mongoose.Schema({
         min: 3,
         max: 255,
     },
-    password: {
-        type: String,
-        required: true,
-        min: 3,
-        max: 255,
-    },
     description: {
         type: String,
         required: false,

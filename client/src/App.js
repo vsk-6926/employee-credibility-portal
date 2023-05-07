@@ -14,6 +14,7 @@ import FeedbackForm from './pages/takeScore';
 import { useDispatch } from 'react-redux';
 import { loginUser } from './redux/slices';
 import JobDetails from './pages/jobDetails';
+import UpdateDetails from './pages/updateDetails';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/createjob" element={<CreateJobListing/>}/>
         <Route path="/takescore" element={<FeedbackForm/>}/>
         <Route path="/jobdetails" element={<JobDetails/>}/>
+        <Route path="/updateDetails" element={<UpdateDetails/>}/>
       </Routes>
       <Footer/>
     </BrowserRouter>
