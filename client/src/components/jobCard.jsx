@@ -32,65 +32,9 @@ const JobCard = ({ job }) => {
 };
 
 const TopJobOpenings = () => {
-  const jobOpenings = [
-    {
-      id: 1,
-      title: "Front-end Developer",
-      company: "ABC Inc.",
-      location: "New York, NY",
-      salary: "$80k - $100k",
-      description:
-        "We are looking for an experienced Front-end Developer to join our team and help us build modern, responsive web applications using cutting-edge technologies.",
-    },
-    {
-      id: 2,
-      title: "Marketing Manager",
-      company: "XYZ Corp.",
-      location: "Los Angeles, CA",
-      salary: "$90k - $120k",
-      description:
-        "We are seeking a skilled Marketing Manager to develop and implement marketing strategies that will drive revenue growth and increase brand awareness for our company.",
-    },
-    {
-      id: 3,
-      title: "Data Analyst",
-      company: "123 Corp.",
-      location: "Chicago, IL",
-      salary: "$70k - $90k",
-      description:
-        "We are looking for a Data Analyst to collect, analyze, and interpret large datasets in order to identify insights and trends that will inform business decisions.",
-    },
-  ];
 
-  const alljobOpenings = [
-    {
-      id: 1,
-      title: "Front-end Developer",
-      company: "ABC Inc.",
-      location: "New York, NY",
-      salary: "$80k - $100k",
-      description:
-        "We are looking for an experienced Front-end Developer to join our team and help us build modern, responsive web applications using cutting-edge technologies.",
-    },
-    {
-      id: 2,
-      title: "Marketing Manager",
-      company: "XYZ Corp.",
-      location: "Los Angeles, CA",
-      salary: "$90k - $120k",
-      description:
-        "We are seeking a skilled Marketing Manager to develop and implement marketing strategies that will drive revenue growth and increase brand awareness for our company.",
-    },
-    {
-      id: 3,
-      title: "Data Analyst",
-      company: "123 Corp.",
-      location: "Chicago, IL",
-      salary: "$70k - $90k",
-      description:
-        "We are looking for a Data Analyst to collect, analyze, and interpret large datasets in order to identify insights and trends that will inform business decisions.",
-    },
-  ];
+  const jobOpenings=[];
+  const alljobOpenings=[];
   
   const [jobs,setJobs] = useState([]);
 

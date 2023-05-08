@@ -6,9 +6,9 @@ const Hero = () => {
       <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="md:flex md:items-center md:justify-between">
           <div className="md:w-1/2">
-            <h2 className="text-5xl font-bold mb-4">Welcome to TalentCred!</h2>
+            <h2 className="text-5xl font-bold mb-4">Welcome to Employee Credibility Portal!</h2>
             <p className="text-xl mb-6 mr-5">
-              TalentCred is a one stop solution to all your hiring problems and
+              ECP is a one stop solution to all your hiring problems and
               also a great place for all the young minds to look for great job
               listings...
             </p>

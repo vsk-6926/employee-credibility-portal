@@ -42,10 +42,10 @@ function Navbar() {
               <Link to="/jobs">Jobs</Link>
             </li>
             <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
-              <Link to="/employee">Employee</Link>
+              <Link to="/offers">Offers</Link>
             </li>
             <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
-              <Link to="/company">Company</Link>
+              <Link to="/employee">Dashboard</Link>
             </li>
           </>
         );
@@ -74,9 +74,6 @@ function Navbar() {
           <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
             <Link to="/jobs">Jobs</Link>
           </li>
-          <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
-              <Link to="/employee">Employee</Link>
-            </li>
             <li className="block mt-8 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 px-3 py-2">
               <Link to="/company">Company</Link>
             </li>
@@ -92,7 +89,7 @@ function Navbar() {
         className="flex items-center flex-shrink-0 text-white mr-6 ml-8"
       >
         <span className="font-bold text-4xl font-serif tracking-wider ml-auto">
-          TalentCred
+          ECP
         </span>
       </a>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">

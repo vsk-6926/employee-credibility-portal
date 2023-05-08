@@ -6,6 +6,7 @@ import Progress from "../components/totalChart";
 import axios from 'axios'
 import { useNavigate } from "react-router";
 import ProgressBar from "../components/totalChart";
+import { useSelector } from "react-redux";
 
 
 
@@ -19,12 +20,18 @@ const barChartWidth = 600;
 const barChartHeight = 400;
 
 const Employee = () => {
+  const userId = useSelector((state) => state.login.userId);
+  const userType = useSelector((state) => state.login.userType);
   const [score, setScore] = useState(null);
   const navigate=useNavigate()
+  
   const urlParams = new URLSearchParams(window.location.search);
-  const name = urlParams.get("name");
+  var name = urlParams.get("name");
   const title=urlParams.get('title');
   const company=urlParams.get('company');
+  if(userType==="employee"){
+    name=userId;
+  }
   useEffect(() => {
     const fetchScoreDetails = async () => {
       try {
@@ -34,6 +41,7 @@ const Employee = () => {
         console.error('Error fetching score details:', error);
       }
     };
+
 
     fetchScoreDetails();
   }, [name]);
@@ -128,11 +136,12 @@ const Employee = () => {
 <div>
 <ProgressBar totalScore={totalScore}/>
 </div>
-<div className="flex items-center justify-center mt-10">
+{userType==="company"?<div className="flex items-center justify-center mt-10">
   <button className="bg-blue-500 hover:bg-blue-600 text-white text-xl font-bold py-4 px-8 rounded-lg shadow-lg" onClick={clickHandler}>
     Make Offer
   </button>
-</div>
+</div>:null}
+
 
 </div>
 
