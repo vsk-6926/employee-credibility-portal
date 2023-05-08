@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const scoreSchema = new mongoose.Schema({
     name: {
         type: String,
+        required:true,
+        unique:true
     },
     experience: {
         type: Number,

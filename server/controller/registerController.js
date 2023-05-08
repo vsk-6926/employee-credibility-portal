@@ -26,6 +26,8 @@ const registerUser = async (req, res) => {
                     name: user.name,
                   email: user.email,
                   phone : user.phone,
+                  totalScore:80
+
                 })
                 const newScore = new Score({
                     name: user.name,
@@ -35,6 +37,7 @@ const registerUser = async (req, res) => {
                     problemSolving: 80,
                     offersAcceptance:80,
                     interviews: 80,
+                    totalScore:80
                 });
                 await newScore.save();
                 await newEmployee.save();

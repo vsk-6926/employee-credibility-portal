@@ -20,10 +20,7 @@ const offerSchema = new mongoos.Schema({
         max: 255,
     },
     status : {
-        type: String,
-        required: true,
-        min: 3,
-        max: 255,
+        type: Boolean
     },
 },
 {timestamps: true}

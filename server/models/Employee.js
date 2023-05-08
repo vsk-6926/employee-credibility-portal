@@ -25,6 +25,9 @@ const employeeSchema = new mongoose.Schema({
     location : {
         type: String,
     }, 
+    totalScore:{
+        type:Number
+    }
 });
 
 module.exports = mongoose.model('Employee', employeeSchema);

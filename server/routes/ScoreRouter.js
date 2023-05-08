@@ -3,8 +3,8 @@ const router = express.Router();
 
 const ScoreController = require('../controller/ScoreController');
 
-router.get('/', ScoreController.getScore);
+router.post('/get', ScoreController.getScore);
 
-router.post('/', ScoreController.updateScore);
+router.post('/update', ScoreController.updateScore);
 
 module.exports = router;

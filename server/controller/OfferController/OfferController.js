@@ -8,7 +8,7 @@ const createOffer = async (req, res) => {
         role: offer.role,
         employee: offer.employee,
         company: offer.company,
-        status: offer.status,
+        status: false,
     });
     try {
         const savedOffer = await newOffer.save();
