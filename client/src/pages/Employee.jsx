@@ -1,17 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import { FaBriefcase, FaCheckCircle, FaUserGraduate, FaRegHandshake, FaRegAddressCard } from "react-icons/fa";
 import { BsFillPersonFill } from "react-icons/bs";
 import Progress from "../components/totalChart";
+import axios from 'axios'
+import { useNavigate } from "react-router";
+import ProgressBar from "../components/totalChart";
 
-const data = [
-  { name: "Experience", value: 27, icon: <FaBriefcase size={30} /> },
-  { name: "Technical Skills", value: 8, icon: <FaCheckCircle size={30} /> },
-  { name: "Interpersonal Skills", value: 10.5, icon: <FaUserGraduate size={30} /> },
-  { name: "Problem Solving Ability", value: 18, icon: <FaRegHandshake size={30} /> },
-  { name: "Interview Score", value: 13.5, icon: <FaRegAddressCard size={30} /> },
-  { name: "Offers and acceptances", value: 15.5, icon: <BsFillPersonFill size={30} /> },
-];
+
 
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8", "#FFC658"];
@@ -23,15 +19,51 @@ const barChartWidth = 600;
 const barChartHeight = 400;
 
 const Employee = () => {
+  const [score, setScore] = useState(null);
+  const navigate=useNavigate()
+  const urlParams = new URLSearchParams(window.location.search);
+  const name = urlParams.get("name");
+  const title=urlParams.get('title');
+  const company=urlParams.get('company');
+  useEffect(() => {
+    const fetchScoreDetails = async () => {
+      try {
+        const response = await axios.post('http://localhost:5000/score/get', {name});
+        setScore(response.data.score);
+      } catch (error) {
+        console.error('Error fetching score details:', error);
+      }
+    };
 
-
-  const totalScore = data.reduce((accumulator, currentValue) => {
-    return accumulator + currentValue.value;
-  }, 0);
-
+    fetchScoreDetails();
+  }, [name]);
+  const clickHandler=async()=>{
+    try {
+      const response = await axios.post('http://localhost:5000/offer/create', {
+        role: title,
+        employee: name,
+        company: company
+      });
+      navigate(`/takescore?name=${name}&title=${title}`)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  if(score){
+    const data = [
+      { name: "Experience", value: score.experience, icon: <FaBriefcase size={30} /> },
+      { name: "Technical Skills", value: score.technicalSkills, icon: <FaCheckCircle size={30} /> },
+      { name: "Interpersonal Skills", value: score.interPersonalSkills, icon: <FaUserGraduate size={30} /> },
+      { name: "Problem Solving Ability", value: score.problemSolving, icon: <FaRegHandshake size={30} /> },
+      { name: "Interview Score", value: score.interviews, icon: <FaRegAddressCard size={30} /> },
+      { name: "Offers and acceptances", value: score.offersAcceptance, icon: <BsFillPersonFill size={30} /> },
+    ];
+    var totalScore=score.totalScore
+  
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-4xl font-bold mb-8 text-center">Employee Dashboard</h1>
+      <h3 className="text-2xl font-bold mb-8 text-center">{name}</h3>
       <div className="flex flex-col justify-between items-center">
         <div className="w-full md:w-1/2 p-4 my-4 mx-auto justify-center">
           <h4 className="text-2xl mb-8 text-center">Pie Chart For Credibility Score</h4>
@@ -94,11 +126,17 @@ const Employee = () => {
 </div>
 <h4 className="text-2xl mb-8 text-center">Total Credibility Score</h4>
 <div>
-<Progress totalScore={77} />
+<ProgressBar totalScore={totalScore}/>
 </div>
+<div className="flex items-center justify-center mt-10">
+  <button className="bg-blue-500 hover:bg-blue-600 text-white text-xl font-bold py-4 px-8 rounded-lg shadow-lg" onClick={clickHandler}>
+    Make Offer
+  </button>
+</div>
+
 </div>
 
 );
-};
+};}
 
 export default Employee;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const EmployeeCard = ({
   image,
@@ -9,7 +10,13 @@ const EmployeeCard = ({
   currentCompany,
   credibilityScore,
   location,
+  title,
+  company
 }) => {
+  const navigate=useNavigate()
+  const clickHandler=()=>{
+    navigate(`/employee?name=${name}&title=${title}&company=${company}`);
+  }
   return (
     <div className="bg-white rounded-lg shadow-md p-4">
       <img
@@ -39,14 +46,12 @@ const EmployeeCard = ({
         ))}
       </div>
       <div className="flex justify-center mt-6">
-        <Link to="/employee">
         <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                type="submit"
+                type="submit" onClick={clickHandler}
               >
                More Details
               </button>
-        </Link>
               
             </div>
     </div>

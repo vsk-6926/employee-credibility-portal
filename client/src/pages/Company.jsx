@@ -1,16 +1,10 @@
 import React from "react";
 import EmployeeCard from "../components/Employeecard.jsx"; // import the employee card component
-import { useState } from "react";
 
 const Company = () => {
   // sample employee data
-  const [formData, setFormData] = useState({
-    name: "",
-    password: "",
-    email: "",
-    phone: "",
-    userType: "",
-  });
+  
+
 
   const employees = [
     {
@@ -56,7 +50,6 @@ const Company = () => {
             currentCompany={employee.currentCompany}
             credibilityScore={employee.credibilityScore}
             location={employee.location}
-            profilePic={employee.profilePic}
           />
         ))}
       </div>

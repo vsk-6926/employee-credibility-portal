@@ -8,22 +8,61 @@ import EmployeeCard from '../components/Employeecard';
 const JobDetails = () => {
     const userType = useSelector((state) => state.login.userType);
     const [jobDetails, setJobDetails] = useState([]);
+    const [appliedEmployees, setAppliedEmployees] = useState([]);
+    const [employeeDetails, setEmployeeDetails] = useState([]);
     const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
-    useEffect(() => {
-        
-        const fetchJobDetails = async () => {
-      try {
-        const response = await axios.post(`http://localhost:5000/job/jobdetails`,{id:id})
-        setJobDetails(response.data[0]);
-        
-      } catch (error) {
-        console.error('Error fetching job details:', error);
-      };
+        useEffect(() => {
+          const fetchJobDetails = async () => {
+            try {
+              const response = await axios.post(`http://localhost:5000/job/jobdetails`, { id: id });
+              setJobDetails(response.data[0]);
+            } catch (error) {
+              console.error('Error fetching job details:', error);
+            }
+          };
       
-    };
-    fetchJobDetails();
-      }, [id]);
+          fetchJobDetails();
+        }, [id]);
+      
+        useEffect(() => {
+          if (jobDetails && userType === 'company') {
+            const fetchAppliedEmployees = async () => {
+              try {
+                const response = await axios.post('http://localhost:5000/appliedjobs/get', {
+                  company: jobDetails.company,
+                  jobTitle: jobDetails.title,
+                });
+                setAppliedEmployees(response.data);
+              } catch (error) {
+                console.error('Error fetching applied employees:', error);
+              }
+            };
+      
+            fetchAppliedEmployees();
+          }
+        }, [jobDetails, userType]);
+      
+        useEffect(() => {
+          const fetchEmployeeDetails = async () => {
+            try {
+              const employees = await Promise.all(
+                appliedEmployees.map(async (employee) => {
+                  const response = await axios.post('http://localhost:5000/employee/get', { name: employee.employee });
+                  return response.data;
+                })
+              );
+              setEmployeeDetails(employees);
+            } catch (error) {
+              console.error('Error fetching employee details:', error);
+            }
+          };
+      
+          if (appliedEmployees.length > 0) {
+            fetchEmployeeDetails();
+          }
+        }, [appliedEmployees]);
+      
 
       const { title, company, location,salary, description } = jobDetails;
       const employees = [
@@ -58,7 +97,7 @@ const JobDetails = () => {
       return (
         <div className="container  mx-auto px-4 py-8">
       <h2 className="text-3xl font-bold mb-4 text-center">Job Details</h2>
-      <div className=" rounded-lg shadow p-6">
+      <div className=" rounded-lg bg-gray-200 shadow p-6">
         <div className="flex items-center mb-4">
           <div className="bg-blue-900 text-white flex items-center justify-center rounded-full w-12 h-12 mr-4">
             <FaBriefcase className="text-2xl" />
@@ -72,22 +111,23 @@ const JobDetails = () => {
         <h3 className="text-lg font-bold mb-2">Salary: {salary}</h3>
         <h3 className="text-lg font-bold mb-2">Description:</h3>
         <p className="text-gray-700">{description}</p>
-
         {userType === 'company' ? (
           <div>
             <h3 className="text-xl font-bold text-center mt-4 mb-2">Applied Employees</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {employees.map((employee) => (
+              {console.log(employeeDetails)}
+        {employeeDetails.map((employee) => (
           <EmployeeCard
-            key={employee.name}
-            image={employee.profilePic}
-            name={employee.name}
-            experience={employee.experience}
-            skills={employee.skills}
-            currentCompany={employee.currentCompany}
-            credibilityScore={employee.credibilityScore}
-            location={employee.location}
-            profilePic={employee.profilePic}
+            key={employee[0].name}
+            image="https://randomuser.me/api/portraits/men/1.jpg"
+            name={employee[0].name}
+            experience={employee[0].experience}
+            skills={employee[0].skills}
+            currentCompany={employee[0].currentCompany}
+            credibilityScore="80"
+            location={employee[0].location}
+            title={title}
+            company={company}
           />
         ))}
       </div>
