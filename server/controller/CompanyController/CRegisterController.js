@@ -10,6 +10,7 @@ const registerCompany = async (req, res) => {
     } else {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(company.password, salt);
+        console.log(user.password)
         const newCompany = new Company({
             id: new mongoose.Types.ObjectId(),
             name: company.name,
