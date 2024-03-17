@@ -8,9 +8,9 @@ const registerUser = async (req, res) => {
   const user = req.body;
 
   try {
-    const takeUserName = await User.findOne({ name: user.name });
-    console.log(user.name)
-    if (takeUserName) {
+    const alreadyLoggedUser = await User.findOne({ name: user.name });
+    // console.log(user.name)
+    if (alreadyLoggedUser) {
       res.status(400).json({ message: "User already exists" });
     } else {
       const salt = await bcrypt.genSalt(10);
